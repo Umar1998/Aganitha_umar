@@ -1,4 +1,4 @@
-# Setting up postgres container in the local linux machine(ubuntu20.04LTS), creating a database and importing data (Mall_customers data 													from kaggle) from a csv file. 
+# Setting up postgres container in the local linux machine(ubuntu20.04LTS), creating a database and importing data (Mall_customers data from kaggle) from a csv file. 
 
 sudo apt update
 sudo apt upgrade                            # updating repos
@@ -8,7 +8,7 @@ docker --version                            # checking docker version
 sudo docker pull postgres                   # pulling pstgres image on the local machine using 							dockerhub
 sudo docker images  
 
-mkdir -p $HOME/docker/volumes/postgres      # Creating a Directory to Serve as the Local 												      Host Mount Point for Postgres Data Files
+mkdir -p $HOME/docker/volumes/postgres      # Creating a Directory to Serve as the Local Host Mount Point for Postgres Data Files
 
 sudo docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data  postgres
 
