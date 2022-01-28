@@ -5,7 +5,7 @@ sudo apt upgrade                            # updating repos
 sudo apt install docker.io                  # installing docker on ubuntu
 sudo systemctl enable docker                # starting and automating docker
 docker --version                            # checking docker version
-sudo docker pull postgres                   # pulling pstgres image on the local machine using 							dockerhub
+sudo docker pull postgres                   # pulling pstgres image on the local machine using 	dockerhub
 sudo docker images  
 
 mkdir -p $HOME/docker/volumes/postgres      # Creating a Directory to Serve as the Local Host Mount Point for Postgres Data Files
