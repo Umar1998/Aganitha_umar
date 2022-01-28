@@ -1,0 +1,54 @@
+# Setting up postgres container in the local linux machine(ubuntu20.04LTS), creating a database and importing data (Mall_customers data 													from kaggle) from a csv file. 
+
+sudo apt update
+sudo apt upgrade                            # updating repos
+sudo apt install docker.io                  # installing docker on ubuntu
+sudo systemctl enable docker                # starting and automating docker
+docker --version                            # checking docker version
+sudo docker pull postgres                   # pulling pstgres image on the local machine using 							dockerhub
+sudo docker images  
+
+mkdir -p $HOME/docker/volumes/postgres      # Creating a Directory to Serve as the Local 												      Host Mount Point for Postgres Data Files
+
+sudo docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data  postgres
+
+
+# above command is for starting the postgres container
+                        
+sudo docker exec -it pg-docker psql -U postgres
+CREATE DATABASE testdb;
+\c testdb;                              # connecting to testdb
+
+#Now creating a table Mall_customers in testdb
+----------------------------
+CREATE TABLE Mall_customers
+(CustomerID numeric(5),
+Gender varchar,
+Age numeric(5),
+Annual_Income numeric(5),
+Spending_score numeric(5));
+----------------------------
+
+#Importing data from Mall_customers.csv  and dumping it to our table Mall_customers in testdb
+-------------------------------
+\copy Mall_customers from '/var/lib/postgresql/data/Mall_Customers.csv' delimiter ',' csv header;
+-------------------------------
+# to verify 
+
+SELECT * FROM Mall_customers;
+
+-------------------------------
+
+
+==============================================================================================
+#Setting up Jupyter in another docker container
+
+docker run -p 8888:8888 jupyter/scipy-notebook:b418b67c225b
+
+# the above command will pull jupyter/scipy-notebook image from Docker Hub in it is not present in the localhost.
+# After that it will start a container running jupyter server ant link it to the host port 8888
+
+
+
+
+
